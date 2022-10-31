@@ -1,4 +1,5 @@
 <template>
+
     <section :v-if="recipe" class="recipe-container">
         <h2>{{ recipe.title }}</h2>
         <section class="upper-section">
@@ -20,32 +21,27 @@
             <RecipeParagraph v-for="paragraph in recipe.cookingSteps " :key="paragraph.slice(0, 6)"
                 :paragraph="paragraph">
             </RecipeParagraph>
-        </section>
 
+        </section>
+        <RecipeReviews :reviews="recipe.reviews"></RecipeReviews>
     </section>
 </template>
 
 <script>
-import { recipeService } from '@/services/recipe.service'
 import RecipeParagraph from '@/components/RecipeParagraph.vue'
+import RecipeReviews from '@/components/RecipeReviews.vue'
 export default {
-    components: { RecipeParagraph },
+    components: { RecipeParagraph, RecipeReviews },
     data() {
         return {
-            recipe: null,
             displayedImgIdx: 0,
         }
     },
     intervalId: 1,
     async created() {
-        try {
-            const _id = this.$route.params._id
-            this.recipe = await recipeService.getById(_id)
+        const displayedRecipeId = this.$route.params._id
+        this.$store.dispatch({ type: 'setDisplayedRecipe', displayedRecipeId })
 
-        } catch (err) {
-            console.log(err)
-            //needs to add error handling
-        }
         this.intervalId = setInterval(() => {
             this.displayedImgIdx++
             if (this.displayedImgIdx > this.recipe.images.length - 1) {
@@ -55,7 +51,6 @@ export default {
     },
     methods: {
         changeDisplayedImgIdx(idx) {
-            console.log('clickin')
             this.displayedImgIdx = idx
         }
     },
@@ -63,6 +58,7 @@ export default {
         clearInterval(this.intervalId)
     },
     computed: {
+        recipe() { return this.$store.getters.displayedRecipe },
         mainImageSrc() {
             return this.recipe.images[this.displayedImgIdx]
         }
