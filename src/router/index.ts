@@ -5,12 +5,12 @@ import RecipeApp from '../views/RecipeApp.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/recipe',
+    path: '/',
     name: 'recipe',
     component: RecipeApp
   },
   {
-    path: '/recipe/:_id',
+    path: '/:_id',
     name: 'recipeDetails',
     component: RecipeDetails
   },

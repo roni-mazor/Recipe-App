@@ -21,7 +21,7 @@ export default {
     },
     methods: {
         openRecipePage(recipeId) {
-            this.$router.push(`/recipe/${recipeId}`)
+            this.$router.push(`/${recipeId}`)
         }
     }
 
@@ -36,5 +36,11 @@ export default {
     column-gap: 3px;
     list-style: none;
     width: 100%;
+
+    li {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 </style>

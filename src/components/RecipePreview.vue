@@ -4,7 +4,7 @@
         <h4 class="recipe-title">{{ recipe.title }}</h4>
         <p>{{ createdAt }}</p>
     </article>
-    <img class="preview-img" :src="recipe.images[1]">
+    <img class="preview-img" :src="recipe.images[0]">
 </template>
 
 <script>

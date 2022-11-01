@@ -4,20 +4,22 @@
         <h2>{{ recipe.title }}</h2>
         <section class="upper-section">
             <ul class="ingredients-list">
+                <li class="heading-li">What you'll need:</li>
                 <li v-for="ingredient in recipe.ingredients " :key="ingredient">
                     {{ ingredient }}</li>
             </ul>
             <section class="main-image-container">
                 <img :src="mainImageSrc" alt="">
             </section>
+        </section>
+        <section class="recipe-paragraphs-container">
             <ul class="image-gallery-container">
                 <li @click="changeDisplayedImgIdx(index)" :class="{ chosen: index === displayedImgIdx }"
                     v-for="image, index in recipe.images " :key="image.slice(0, 6)">
                     <img :src="image" alt="">
                 </li>
             </ul>
-        </section>
-        <section>
+            <h3>The actual cooking</h3>
             <RecipeParagraph v-for="paragraph in recipe.cookingSteps " :key="paragraph.slice(0, 6)"
                 :paragraph="paragraph">
             </RecipeParagraph>
@@ -75,19 +77,41 @@ export default {
 
     .upper-section {
         display: flex;
-        flex-wrap: wrap;
+        gap: 5px;
 
         .ingredients-list {
+            box-sizing: border-box;
             list-style: none;
-            padding: 0;
-            flex-basis: 20%;
+            display: flex;
+            flex-direction: column;
+            margin: 0 0 0 5px;
+            flex-basis: 25%;
+            background-color: var(--clr3);
+            padding: 10px;
+            height: fit-content;
+            border-radius: 3px;
+
+            .heading-li {
+                text-decoration: underline;
+                font-size: 24px;
+                align-self: center;
+                margin-bottom: 10px;
+                color: var(--clr1)
+            }
+
+            li {
+                text-align: left;
+                margin-bottom: 3px;
+                align-self: flex-start;
+                padding-left: 10px;
+                font-size: 20px;
+            }
         }
 
 
         .main-image-container {
-            flex-basis: 80%;
-            //maybe max  width? the picture looks a bit too big in my opinion and allso
-            //i should set the site layout the a maximum that wont make it fuck up on big screens
+            flex-shrink: 10;
+            flex-basis: 75%;
 
             img {
                 object-fit: cover;
@@ -95,28 +119,56 @@ export default {
             }
         }
 
+
+    }
+
+    .recipe-paragraphs-container {
+        font-size: 18px;
+        padding: 5px 0 5px 25px;
+        text-align: left;
+        position: relative;
+        margin-bottom: 20px;
+
+        h3 {
+            font-size: 24px;
+            text-decoration: underline;
+            color: var(--clr1);
+        }
+
         .image-gallery-container {
+            position: absolute;
+            right: 3px;
             list-style: none;
+            margin: 26px 0 0 14px;
             padding: 0;
             display: flex;
+            flex-direction: column;
+            gap: 2px;
+            border: 4px solid var(--clr3);
+            // i want an inner scroll that will wrap it and then inside render all the pictures
 
             li {
+                box-sizing: border-box;
                 list-style: none;
-                width: 100px;
+                width: 240px;
+                height: 240px;
 
                 &.chosen {
                     border: 2px solid rgb(93, 93, 134);
-                    //maybe box-shadow
                 }
 
                 img {
-                    object-fit: fill;
+                    object-fit: cover;
                     width: 100%;
+                    height: 100%;
                 }
             }
         }
-    }
 
+        p {
+            max-width: 70%;
+        }
+    }
 
 
 

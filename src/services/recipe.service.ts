@@ -1,5 +1,6 @@
 import { storageService } from "./async-storage.service";
 import { Recipe } from "./models/recipe.model";
+import { Review } from "./models/review.model";
 import { utilService } from "./util.service";
 
 
@@ -9,6 +10,7 @@ export const recipeService = {
     query,
     getById,
     save,
+    createNewReview
 }
 
 
@@ -27,6 +29,15 @@ async function save(recipe: Recipe) {
         return storageService.put(STORAGE_KEY, recipe)
     } else {
         return storageService.post(STORAGE_KEY, recipe)
+    }
+}
+
+function createNewReview(createdBy: string, reviewContent: string): Review {
+    return {
+        id: utilService.makeId(),
+        createdAt: Date.now(),
+        createdBy,
+        reviewContent
     }
 }
 
