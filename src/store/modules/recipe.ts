@@ -18,12 +18,13 @@ export default {
             state.displayedRecipe = recipe
         },
         setRecipes(state: State, { recipes }: { recipes: Recipe[] }) {
-            console.log('getting here')
+
             state.recipes = recipes
-            console.log(state)
         },
-        setFilterBy(state: State, { value }: { value: string }) {
+        setFilterBy(state: State, value: string) {
             state.filterBy = value
+        }, addRecipe(state: State, { newRecipe }: { newRecipe: Recipe }) {
+            state.recipes = [...state.recipes, newRecipe]
         }
 
     },
@@ -44,15 +45,23 @@ export default {
         },
         async setRecipes({ commit }: { commit: Commit }) {
             try {
-                console.log('getting here')
                 const recipes = await recipeService.query()
                 commit({ type: 'setRecipes', recipes })
             } catch (err) {
                 console.log(err)
             }
         },
-        setFilterBy({ commit }: { commit: Commit }, { value }: { value: string }) {
+        setFilterBy({ commit }: { commit: Commit }, value: string) {
             commit('setFilterBy', value)
+        },
+        async addRecipe({ commit }: { commit: Commit }, { recipe }: { recipe: Recipe }) {
+            try {
+                const newRecipe = await recipeService.save(recipe)
+                commit({ type: 'addRecipe', newRecipe })
+            } catch (err) {
+                console.error(err)
+            }
+
         }
     },
     getters: {
@@ -60,11 +69,12 @@ export default {
             return state.displayedRecipe
         },
         displayedRecipes(state: State) {
-            const regex = new RegExp(state.filterBy)
+            const regex = new RegExp(state.filterBy, 'ig')
             if (state.recipes.length > 0) {
                 return state.recipes.filter(recipe => {
-                    return regex.test(recipe.title) &&
-                        recipe.ingredients.some((i: string) => regex.test(i))
+                    return regex.test(recipe.title) ||
+                        recipe.ingredients.some((i: string) => regex.test(i)) ||
+                        regex.test(recipe.category)
                 })
             } else return []
         },

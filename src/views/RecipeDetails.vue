@@ -146,24 +146,30 @@ export default {
 
         .gallery-wrapper {
             align-self: flex-start;
+            min-width: 240px;
+            border: 4px solid var(--clr3);
+            max-height: 550px;
+            overflow-x: hidden;
+            overflow-y: auto;
 
             .image-gallery-container {
+                margin: 0;
                 list-style: none;
                 padding: 0;
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
-                border: 4px solid var(--clr3);
-                // i want an inner scroll that will wrap it and then inside render all the pictures
+                width: 100%;
 
                 li {
                     box-sizing: border-box;
                     list-style: none;
-                    width: 240px;
+                    width: 100%;
                     height: 240px;
+                    opacity: 0.9;
 
                     &.chosen {
-                        border: 2px solid rgb(93, 93, 134);
+                        opacity: 1;
                     }
 
                     img {

@@ -8,11 +8,13 @@
       <button class="close-btn" @click="toggleNav">
         <img class="bars-svg" src="../assets/imgs/X.svg" />
       </button>
+      <section class="search-container">
+        <input :value="filterBy" @input="setFilterBy" placeholder="Search recipes" type="text">
+        <p>Search by name, category or ingredient</p>
+      </section>
       <router-link class="link" class-active="active" to="/"> Recipes</router-link>
       <router-link class="link" class-active="active" to="/about">About</router-link>
       <router-link class="link" class-active="active" to="/add">Create</router-link>
-      <input :value="filterBy" @input="setFilterBy" placeholder="Search recipes" type="text">
-      <p>search by name category or ingredient</p>
     </nav>
 
   </header>
@@ -98,6 +100,24 @@ header.main-header {
     gap: 10px;
     font-size: 20px;
     align-items: flex-start;
+
+    .search-container {
+      margin-right: 12px;
+      padding: 10px;
+      background: var(--clr2);
+      position: relative;
+      right: 3px;
+
+      input {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 6px 0 0 0;
+        font-size: 16px;
+      }
+    }
 
     .link {
       all: unset;

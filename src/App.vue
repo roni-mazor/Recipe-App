@@ -20,6 +20,20 @@ export default {
 body {
   margin: 0;
   padding: 0;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(9, 30, 66, .078);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsla(0, 12%, 76%, .55);
+    border-radius: 5px;
+  }
 }
 
 #app {
