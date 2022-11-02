@@ -28,6 +28,8 @@ async function save(recipe: Recipe) {
     if (recipe._id) {
         return storageService.put(STORAGE_KEY, recipe)
     } else {
+        recipe.reviews = []
+        recipe.createdAt = Date.now()
         return storageService.post(STORAGE_KEY, recipe)
     }
 }

@@ -33,7 +33,7 @@ body {
   main {
     box-sizing: border-box;
     max-width: 1260px;
-    min-height: calc(100vh - 176px);
+    min-height: calc(100vh - 146px);
     margin: auto;
     padding: 3px;
     flex: 1;

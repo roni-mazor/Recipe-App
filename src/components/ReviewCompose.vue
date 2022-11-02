@@ -59,36 +59,6 @@ export default {
         }
     }
 
-    textarea.content {
-        background: #fff;
-        border: 0;
-        width: 360px;
-        height: 60px;
-        font-family: Dosis;
-        font-size: 17px;
-        margin: 10px 0 10px 15px;
-        resize: none;
-        overflow: hidden;
-        overflow-wrap: break-word;
-        padding: 5px;
-        outline: none;
-        box-shadow: 0 4px 8px -2px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
-
-        &:focus-visible {
-            border: none;
-        }
-    }
-
-    input.name {
-        font-family: Dosis;
-        font-size: 15px;
-        border: 0;
-        outline: none;
-        margin-left: 15px;
-        padding: 5px;
-        box-shadow: 0 4px 8px -2px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
-    }
-
     .add-review-btn {
         position: absolute;
         left: 239px;

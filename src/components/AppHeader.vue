@@ -8,8 +8,9 @@
       <button class="close-btn" @click="toggleNav">
         <img class="bars-svg" src="../assets/imgs/X.svg" />
       </button>
-      <router-link to="/"> Recipes</router-link>
-      <router-link to="/about">about</router-link>
+      <router-link class="link" class-active="active" to="/"> Recipes</router-link>
+      <router-link class="link" class-active="active" to="/about">About</router-link>
+      <router-link class="link" class-active="active" to="/add">Create</router-link>
     </nav>
 
   </header>
@@ -25,7 +26,6 @@ export default {
   },
   methods: {
     toggleNav() {
-      console.log('toggling', this.isNavOpen)
       this.isNavOpen = !this.isNavOpen
     },
     navigateHome() {
@@ -58,28 +58,44 @@ header.main-header {
 
   .nav-btn {
     position: absolute;
-    top: 16px;
+    top: 21px;
     right: 4px;
     background: transparent;
     border: none;
     cursor: pointer;
 
     .bars-svg {
-      height: 40px;
-      width: 40px;
+      width: 30px;
       color: var(--clr1);
     }
   }
 
   .main-nav {
+    width: 200px;
     background: var(--clr3);
     position: fixed;
     height: 100vh;
-    z-index: 50;
+    z-index: 150;
     top: 0;
     right: -400px;
     box-shadow: -4px -1px 6px -2px rgb(0 0 0 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    padding-top: 48px;
+    padding: 48px 0 0 12px;
+    gap: 10px;
+    font-size: 20px;
+    align-items: flex-start;
+
+    .link {
+      all: unset;
+      cursor: pointer;
+
+      &.router-link-active {
+        text-decoration: underline;
+      }
+    }
 
     &.open {
       right: 0;
@@ -88,14 +104,14 @@ header.main-header {
 
     .close-btn {
       position: absolute;
-      top: 16px;
-      right: 4px;
+      top: 6px;
+      right: 1px;
       background: transparent;
       border: none;
       cursor: pointer;
 
       img {
-        width: 28px
+        width: 22px;
       }
     }
   }
