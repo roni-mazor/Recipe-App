@@ -12,18 +12,21 @@
                 <img :src="mainImageSrc" alt="">
             </section>
         </section>
-        <section class="recipe-paragraphs-container">
-            <ul class="image-gallery-container">
-                <li @click="changeDisplayedImgIdx(index)" :class="{ chosen: index === displayedImgIdx }"
-                    v-for="image, index in recipe.images " :key="image.slice(0, 6)">
-                    <img :src="image" alt="">
-                </li>
-            </ul>
-            <h3>The actual cooking</h3>
-            <RecipeParagraph v-for="paragraph in recipe.cookingSteps " :key="paragraph.slice(0, 6)"
-                :paragraph="paragraph">
-            </RecipeParagraph>
-
+        <section class="middle-section">
+            <div class="gallery-wrapper">
+                <ul class="image-gallery-container">
+                    <li @click="changeDisplayedImgIdx(index)" :class="{ chosen: index === displayedImgIdx }"
+                        v-for="image, index in recipe.images " :key="image.slice(0, 6)">
+                        <img :src="image" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="recipe-paragraph-container">
+                <h3>The actual cooking</h3>
+                <RecipeParagraph v-for="paragraph in recipe.cookingSteps " :key="paragraph.slice(0, 6)"
+                    :paragraph="paragraph">
+                </RecipeParagraph>
+            </div>
         </section>
         <RecipeReviews :reviews="recipe.reviews"></RecipeReviews>
     </section>
@@ -122,52 +125,56 @@ export default {
 
     }
 
-    .recipe-paragraphs-container {
+    .middle-section {
         font-size: 18px;
         padding: 5px 0 5px 25px;
         text-align: left;
         position: relative;
         margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        flex-direction: row-reverse;
 
-        h3 {
-            font-size: 24px;
-            text-decoration: underline;
-            color: var(--clr1);
+        .recipe-paragraphs-container {
+
+            h3 {
+                font-size: 24px;
+                text-decoration: underline;
+                color: var(--clr1);
+            }
         }
 
-        .image-gallery-container {
-            position: absolute;
-            right: 3px;
-            list-style: none;
-            margin: 26px 0 0 14px;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            border: 4px solid var(--clr3);
-            // i want an inner scroll that will wrap it and then inside render all the pictures
+        .gallery-wrapper {
+            align-self: flex-start;
 
-            li {
-                box-sizing: border-box;
+            .image-gallery-container {
                 list-style: none;
-                width: 240px;
-                height: 240px;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                border: 4px solid var(--clr3);
+                // i want an inner scroll that will wrap it and then inside render all the pictures
 
-                &.chosen {
-                    border: 2px solid rgb(93, 93, 134);
-                }
+                li {
+                    box-sizing: border-box;
+                    list-style: none;
+                    width: 240px;
+                    height: 240px;
 
-                img {
-                    object-fit: cover;
-                    width: 100%;
-                    height: 100%;
+                    &.chosen {
+                        border: 2px solid rgb(93, 93, 134);
+                    }
+
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
         }
 
-        p {
-            max-width: 70%;
-        }
     }
 
 

@@ -1,18 +1,30 @@
 import { recipeService } from "@/services/recipe.service";
-import { Recipe } from "@/services/models/recipe.model";
+import { isRecipe, Recipe } from "@/services/models/recipe.model";
 import { ActionContext, Commit } from "vuex";
 import { Review } from "@/services/models/review.model";
 interface State {
-    displayedRecipe: Recipe | null
+    displayedRecipe: Recipe | null,
+    recipes: [] | Recipe[],
+    filterBy: string
 }
 export default {
     state: {
         displayedRecipe: null,
+        recipes: [],
+        filterBy: ''
     },
     mutations: {
-        setDisplayedRecipe(state: any, { recipe }: { recipe: Recipe }) {
+        setDisplayedRecipe(state: State, { recipe }: { recipe: Recipe }) {
             state.displayedRecipe = recipe
         },
+        setRecipes(state: State, { recipes }: { recipes: Recipe[] }) {
+            console.log('getting here')
+            state.recipes = recipes
+            console.log(state)
+        },
+        setFilterBy(state: State, { value }: { value: string }) {
+            state.filterBy = value
+        }
 
     },
     actions: {
@@ -29,13 +41,35 @@ export default {
         async updateRecipe({ commit }: { commit: Commit }, { recipe }: { recipe: Recipe }) {
             await recipeService.save(recipe)
             commit({ type: 'setDisplayedRecipe', recipe })
-
-            // console.log// transfer to make the change from the grandfather
+        },
+        async setRecipes({ commit }: { commit: Commit }) {
+            try {
+                console.log('getting here')
+                const recipes = await recipeService.query()
+                commit({ type: 'setRecipes', recipes })
+            } catch (err) {
+                console.log(err)
+            }
+        },
+        setFilterBy({ commit }: { commit: Commit }, { value }: { value: string }) {
+            commit('setFilterBy', value)
         }
     },
     getters: {
         displayedRecipe(state: State) {
             return state.displayedRecipe
+        },
+        displayedRecipes(state: State) {
+            const regex = new RegExp(state.filterBy)
+            if (state.recipes.length > 0) {
+                return state.recipes.filter(recipe => {
+                    return regex.test(recipe.title) &&
+                        recipe.ingredients.some((i: string) => regex.test(i))
+                })
+            } else return []
+        },
+        filterBy(state: State) {
+            return state.filterBy
         }
     }
 }

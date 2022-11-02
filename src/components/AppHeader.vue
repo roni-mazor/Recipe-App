@@ -11,6 +11,8 @@
       <router-link class="link" class-active="active" to="/"> Recipes</router-link>
       <router-link class="link" class-active="active" to="/about">About</router-link>
       <router-link class="link" class-active="active" to="/add">Create</router-link>
+      <input :value="filterBy" @input="setFilterBy" placeholder="Search recipes" type="text">
+      <p>search by name category or ingredient</p>
     </nav>
 
   </header>
@@ -30,6 +32,15 @@ export default {
     },
     navigateHome() {
       this.$router.push('/')
+    },
+    setFilterBy({ target: { value } }) {
+      this.$store.dispatch('setFilterBy', value)
+    },
+
+  },
+  computed: {
+    filterBy() {
+      return this.$store.getters.filterBy
     }
   }
 

@@ -13,3 +13,10 @@ export interface Recipe {
 
 }
 
+export function isRecipe(obj: any): obj is Recipe {
+    return '_id' in obj && 'title' in obj && 'createdAt' in obj &&
+        'reviews' in obj && 'images' in obj && 'ingredients' in obj &&
+        'cookingSteps' in obj && 'category' in obj
+}
+
+
