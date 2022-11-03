@@ -22,7 +22,6 @@ export default {
             const recipe = this.$store.getters.displayedRecipe
             recipe.reviews.push(newReview)
             this.$store.dispatch({ type: 'updateRecipe', recipe })
-            this.onGoBack()
         },
 
     },

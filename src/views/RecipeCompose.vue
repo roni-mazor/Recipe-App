@@ -26,7 +26,6 @@
             <input @input="getImageFromInput" id="image-loader" hidden type="file">
         </section>
         <button :disabled="!isRecipeValid" class="recipe-submit-btn" @click="addNewRecipe">Submit new recipe</button>
-        {{ isRecipeValid }}
     </section>
 </template>
 
@@ -57,6 +56,7 @@ export default {
             }
             console.log(recipe)
             this.$store.dispatch({ type: 'addRecipe', recipe })
+            this.$router.push('/')
         },
         addNewIngredientInput(InputIndex) {
             const lastIndex = this.ingredients.length - 1

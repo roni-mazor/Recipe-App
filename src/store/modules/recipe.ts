@@ -32,23 +32,27 @@ export default {
 
         async setDisplayedRecipe({ commit }: { commit: Commit }, { displayedRecipeId }: { displayedRecipeId: string }) {
             try {
-
+                console.log(displayedRecipeId)
                 const recipe = await recipeService.getById(displayedRecipeId)
                 commit({ type: 'setDisplayedRecipe', recipe })
             } catch (err) {
-                console.log(err)
+                console.error(err)
             }
         },
         async updateRecipe({ commit }: { commit: Commit }, { recipe }: { recipe: Recipe }) {
-            await recipeService.save(recipe)
-            commit({ type: 'setDisplayedRecipe', recipe })
+            try {
+                await recipeService.save(recipe)
+                commit({ type: 'setDisplayedRecipe', recipe })
+            } catch (err) {
+                console.error(err)
+            }
         },
         async setRecipes({ commit }: { commit: Commit }) {
             try {
                 const recipes = await recipeService.query()
                 commit({ type: 'setRecipes', recipes })
             } catch (err) {
-                console.log(err)
+                console.error(err)
             }
         },
         setFilterBy({ commit }: { commit: Commit }, value: string) {

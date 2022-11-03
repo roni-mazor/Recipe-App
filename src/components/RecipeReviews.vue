@@ -66,6 +66,8 @@ export default {
 
     .review {
         margin: 5px 4px 5px 18px;
+        line-break: anywhere;
+        max-width: 500px;
 
         .review-header {
             text-decoration: underline;

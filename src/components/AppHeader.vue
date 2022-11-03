@@ -1,6 +1,7 @@
 <template>
   <header class="main-header">
     <h1 @click="navigateHome" class="logo">Maillard</h1>
+    <button class="go-back-btn" @click="onGoBack"> <span>←</span> Back</button>
     <button @click="toggleNav" class="nav-btn">
       <img class="bars-svg" src="../assets/imgs/bars.svg" />
     </button>
@@ -38,6 +39,9 @@ export default {
     setFilterBy({ target: { value } }) {
       this.$store.dispatch('setFilterBy', value)
     },
+    onGoBack() {
+      this.$router.back()
+    }
 
   },
   computed: {
@@ -51,12 +55,40 @@ export default {
 
 <style lang="scss">
 header.main-header {
-  background-color: var(--clr4);
+  position: sticky;
+  top: 0;
+  background-color: #f5efe7;
+  z-index: 150;
   display: flex;
   justify-content: center;
   align-items: center;
 
 
+  .go-back-btn {
+    background-color: var(--clr1);
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    line-height: 10px;
+    align-self: center;
+    border: none;
+    color: var(--clr4);
+    border-radius: 3px;
+    height: 32px;
+    font-family: Dosis;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    span {
+      position: relative;
+      top: -2px;
+    }
+
+    &:hover {
+      opacity: 0.92;
+    }
+  }
 
   h1.logo {
     font-family: AlexBrush;
@@ -103,10 +135,10 @@ header.main-header {
 
     .search-container {
       margin-right: 12px;
-      padding: 10px;
+      padding: 8px;
       background: var(--clr2);
       position: relative;
-      right: 3px;
+      right: 4px;
 
       input {
         margin: 0;
